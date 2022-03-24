@@ -4,3 +4,21 @@
 body {
   font-family: "Bangers", cursive;
 }
+
+.hidden {
+  display: none;
+}
+
+.image {
+  height: 25%;
+  width: 25%;
+}
+
+.list {
+  border: solid 1px;
+  width: 25%;
+}
+
+th {
+  border: solid 1px;
+}

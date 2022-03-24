@@ -29,13 +29,12 @@ const time = function () {
 
   // DOM and set timeout
   clock.innerText = `${hours}:${minutes}:${seconds} ${meridian} dattebayo!`;
-
-  setTimeout(time, 1000);
 };
-time();
+setInterval(time, 1000);
 
 /////////////////////////////////////////////
 // TO DO LIST
-// set an image div to HTML
-// set a time selector for different activities
+
 // make a function that looks at the time and time selector and display the image and text for selected time and activity
+// take the input values and take hour value make an if statement with them
+// adding saved activities to table
