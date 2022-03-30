@@ -42,15 +42,17 @@ const timeActivity = {};
 
 // DOM Variables
 const saveButton = document.getElementById("submit");
-let selectedActivity = document.getElementById("activity").value;
+let selectedActivity = document.getElementById("activity");
 let startTime = document.getElementById("start-time");
 let endTime = document.getElementById("end-time");
 const toDoList = document.getElementById("to-do-list");
 
+const imgAll = document.getElementsByTagName("img");
+
 // event listeners for selector values
 
 document.getElementById("activity").addEventListener("change", function () {
-  selectedActivity = document.getElementById("activity").value;
+  selectedActivity.value = document.getElementById("activity").value;
 });
 
 document.getElementById("start-time").addEventListener("change", function () {
@@ -61,32 +63,72 @@ document.getElementById("end-time").addEventListener("change", function () {
   endTime = document.getElementById("end-time");
 });
 
+const switchImage = function () {
+  //  will display assigned activity image according to current hour and activity start hour
+  const currentTime2 = new Date();
+  for (const [activity, [startTime, endTime]] of Object.entries(timeActivity)) {
+    if (currentTime2.getHours() === Number(startTime)) {
+      // in every situation there is one image tag that displaying. so i need to add hidden class to it first then i can display another image
+      for (let i = 0; i < imgAll.length; i++) {
+        let num = i;
+        let img = document.getElementById(`img-${num + 1}`);
+        if (!img.classList.contains("hidden")) {
+          img.classList.add("hidden");
+        }
+      }
+      // will choose the displayed image
+      switch (activity) {
+        case "Wake Up":
+          document.getElementById("img-1").classList.remove("hidden");
+          break;
+        case "Breakfast":
+          document.getElementById("img-2").classList.remove("hidden");
+          break;
+        case "Kiss Sasuke":
+          document.getElementById("img-3").classList.remove("hidden");
+          break;
+        case "Practice Jutsu":
+          document.getElementById("img-4").classList.remove("hidden");
+          break;
+        case "Ero Sennin Time":
+          document.getElementById("img-5").classList.remove("hidden");
+          break;
+        case "Save Konoha":
+          document.getElementById("img-6").classList.remove("hidden");
+          break;
+        case "Meditation":
+          document.getElementById("img-7").classList.remove("hidden");
+
+          break;
+        case "Dinner":
+          document.getElementById("img-8").classList.remove("hidden");
+          break;
+        case "Sleep":
+          document.getElementById("img-9").classList.remove("hidden");
+          break;
+      }
+    }
+  }
+};
+setInterval(switchImage, 1000);
 // function to saved values added to timeActivity object and shown in table
 saveButton.onclick = function () {
   // add new item (activity, start time, end time) to timeActivity object
-  timeActivity[selectedActivity] = [startTime.value, endTime.value];
+  timeActivity[selectedActivity.value] = [startTime.value, endTime.value];
 
   //add saved activity to table (with start time and end time)
   toDoList.innerHTML += `<tr>
   <th>${startTime.options[startTime.selectedIndex].text} - ${
     endTime.options[endTime.selectedIndex].text
   }</th>
-  <th>${selectedActivity}</th>
+  <th>${selectedActivity.value}</th>
   </tr>`;
 
-  //  will display assigned activity image according to current hour and activity start hour
-  const currentTime2 = new Date();
-  for (const [activity, [startTime, endTime]] of Object.entries(timeActivity)) {
-    console.log(currentTime2.getHours(), startTime);
-    if (currentTime2.getHours() === Number(startTime)) {
-      console.log("yeah!");
-    }
-  }
+  switchImage();
 };
-
-// to
 
 /////////////////////////////////////////////
 // TO DO LIST
 
-// make a function that looks at the time and time selector and display the image and text for selected time and activity
+// what can i do in case of activity time conflict
+// make free time image default
